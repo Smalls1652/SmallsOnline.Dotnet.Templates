@@ -5,8 +5,8 @@ on:
     types: [ published ]
 
 jobs:
-  build:
-
+  create-package:
+    name: Create package and push to private repo
     runs-on: ubuntu-latest
     permissions:
       contents: read
