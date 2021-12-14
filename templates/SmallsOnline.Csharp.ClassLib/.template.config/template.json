@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Tim Small",
+    "classifications": [
+        "csharp",
+        "classlibrary",
+        "blank"
+    ],
+    "identity": "SmallsOnline.Csharp.ClassLib",
+    "name": "SmallsOnline.Csharp.ClassLib",
+    "shortName": "smallsonline-classlib",
+    "sourceName": "SmallsOnline.Csharp.ClassLib.Template",
+    "preferNameDirectory": false,
+    "tags": {
+        "language": "C#",
+        "type": "project"
+    }
+}

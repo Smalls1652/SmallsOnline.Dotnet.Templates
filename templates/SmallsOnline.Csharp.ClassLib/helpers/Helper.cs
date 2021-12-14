@@ -1,0 +1,1 @@
+namespace SmallsOnline.Csharp.ClassLib.Template.Helpers;
