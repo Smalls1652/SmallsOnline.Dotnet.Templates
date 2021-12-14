@@ -1,0 +1,68 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "process",
+            "label": "Create package",
+            "detail": "Create a '.nupkg' file for the template package.",
+            "command": "dotnet",
+            "args": [
+                "pack",
+                "--configuration",
+                "Release",
+                "--output",
+                "${workspaceFolder}\\_build\\",
+                "${workspaceFolder}\\SmallsOnline.Dotnet.Templates.csproj"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "dependsOn": [
+                "Clean build directory"
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": true
+            }
+        },
+        {
+            "type": "shell",
+            "label": "Clean build directory",
+            "detail": "Remove the build directory, if it exists already.",
+            "windows": {
+                "command": "Test-Path -Path '${workspaceFolder}\\_build\\' | % { if ($PSItem -eq $true) { Remove-Item -Path '${workspaceFolder}\\_build\\' -Recurse -Force } }"
+            },
+            "osx": {
+                "command": "rm",
+                "args": [
+                    "-rf",
+                    "${workspaceFolder}/_build/"
+                ]
+            },
+            "linux": {
+                "command": "rm",
+                "args": [
+                    "-rf",
+                    "${workspaceFolder}/_build/"
+                ]
+            },
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            }
+        }
+    ]
+}
