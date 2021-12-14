@@ -26,6 +26,29 @@ DirectoryName/
 |___DirectoryName.csproj
 ```
 
+### SmallsOnline.Csharp.AzFunctions.Isolated
+
+A C# template for an Azure Functions project running in an isolated/out-of-process environment.
+
+#### Short name
+
+`smallsonline-azfunction-isolated`
+
+#### Template structure
+
+```
+DirectoryName/
+|
+|___functions/
+|   |___GetTest.cs
+|
+|___ _Imports.cs
+|___host.json
+|___local.settings.json
+|___Program.cs
+|___DirectoryName.csproj
+```
+
 ## Creating the templates package
 
 ### `dotnet` CLI
