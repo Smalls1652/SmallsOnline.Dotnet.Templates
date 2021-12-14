@@ -6,6 +6,7 @@
         <Description>
             Custom templates for my own personal use.
         </Description>
+        <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Dotnet.Templates</RepositoryUrl>
 
         <PackageType>Template</PackageType>
         <PackageTags>dotnet-new;templates;smalls-online</PackageTags>
