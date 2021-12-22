@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Tim Small",
+    "classifications": [
+        "csharp",
+        "blazorwasm"
+    ],
+    "identity": "SmallsOnline.BlazorWasm",
+    "name": "SmallsOnline.BlazorWasm",
+    "shortName": "smallsonline-blazorwasm",
+    "sourceName": "SmallsOnline.BlazorWasm.Template",
+    "preferNameDirectory": false,
+    "tags": {
+        "language": "C#",
+        "type": "project"
+    }
+}
