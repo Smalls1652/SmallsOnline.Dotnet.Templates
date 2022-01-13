@@ -7,7 +7,7 @@
     ],
     "identity": "SmallsOnline.AzureSWA.Config",
     "name": "SmallsOnline.AzureSWA.Config",
-    "shortName": "smallsonline-azureswaconfig",
+    "shortName": "smallsonline-azureswa-config",
     "sourceName": "SmallsOnline.AzureSWA.Config.Template",
     "preferNameDirectory": false,
     "tags": {
