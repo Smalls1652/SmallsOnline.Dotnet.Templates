@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Tim Small",
+    "classifications": [
+        "azure",
+        "staticwebapp"
+    ],
+    "identity": "SmallsOnline.AzureSWA.Config",
+    "name": "SmallsOnline.AzureSWA.Config",
+    "shortName": "smallsonline-azureswaconfig",
+    "sourceName": "SmallsOnline.AzureSWA.Config.Template",
+    "preferNameDirectory": false,
+    "tags": {
+        "language": "json",
+        "type": "item"
+    }
+}

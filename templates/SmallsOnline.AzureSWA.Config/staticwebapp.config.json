@@ -1,0 +1,37 @@
+{
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": [
+      "/imgs/*.{png,jpg,gif}",
+      "/css/*",
+      "/_framework/*",
+      "/icon-192.png",
+      "/favicon.ico",
+      "/*.css"
+    ]
+  },
+  "routes": [
+    {
+      "route": "/login",
+      "redirect": "/.auth/login/github"
+    },
+    {
+      "route": "/.auth/login/twitter"
+    },
+    {
+      "route": "/.auth/login/aad"
+    },
+    {
+      "route": "/.auth/login/facebook"
+    },
+    {
+      "route": "/.auth/login/google"
+    }
+  ],
+  "responseOverrides": {
+    "401": {
+      "redirect": "/login",
+      "statusCode": 302
+    }
+  }
+}
