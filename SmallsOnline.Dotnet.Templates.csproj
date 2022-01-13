@@ -12,7 +12,7 @@
         <PackageTags>dotnet-new;templates;smalls-online</PackageTags>
 
         <VersionPrefix>2021.12.00</VersionPrefix>
-        <VersionSuffix>preview-03</VersionSuffix>
+        <VersionSuffix>preview-04</VersionSuffix>
 
         <TargetFramework>net6.0</TargetFramework>
 
