@@ -1,25 +1,45 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+:root {
+    --bs-glaucous: #5C82B2;
+    --bs-glaucous-rgb: 119, 151, 191;
+    --bs-air-superiority-blue: #84A2C5;
+    --bs-air-superiority-blue-rgb: 132, 162, 197;
+    --bs-gunmetal: #1A2838;
+    --bs-gunmetal-rgb: 26, 40, 56;
+}
+
+.bg-gunmetal {
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-gunmetal-rgb), var(--bs-bg-opacity)) !important;
+}
+
+.btn-glaucous {
+    color: #fff;
+    background-color: var(--bs-glaucous);
+    border-color: var(--bs-glaucous);
+}
+
+    .btn-glaucous:hover {
+        color: #fff;
+        background-color: var(--bs-air-superiority-blue);
+        border-color: var(--bs-glaucous);
+    }
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-h1:focus {
-    outline: none;
+html {
+    height: 100%;
 }
 
-a, .btn-link {
-    color: #0071c1;
-}
-
-.btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
-}
-
-.content {
-    padding-top: 1.1rem;
+body {
+    background-image: linear-gradient(#496e9c 65%, #f68026);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
 }
 
 .valid.modified:not([type=checkbox]) {
