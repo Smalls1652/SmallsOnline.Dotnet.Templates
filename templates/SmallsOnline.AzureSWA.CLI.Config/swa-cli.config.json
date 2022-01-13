@@ -1,0 +1,10 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Azure/static-web-apps-cli/main/schema/swa-cli.config.schema.json",
+  "configurations": {
+    "app": {
+      "port": 3000,
+      "swaConfigLocation": "./",
+      "context": "http://localhost:5157"
+    }
+  }
+}
