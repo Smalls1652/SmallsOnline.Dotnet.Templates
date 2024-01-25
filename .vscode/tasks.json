@@ -1,29 +1,30 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
         {
-            "type": "process",
-            "label": "Create package",
-            "detail": "Create a '.nupkg' file for the template package.",
-            "command": "dotnet",
-            "args": [
-                "pack",
-                "--configuration",
-                "Release",
-                "--output",
-                "${workspaceFolder}\\_build\\",
-                "${workspaceFolder}\\SmallsOnline.Dotnet.Templates.csproj"
-            ],
-            "problemMatcher": [],
-            "group": {
-                "kind": "build",
-                "isDefault": true
+            "label": "Create NuGet package",
+            "detail": "Create a NuGet package for the Templates project.",
+            "icon": {
+                "id": "package",
+                "color": "terminal.ansiYellow"
             },
-            "dependsOn": [
-                "Clean build directory"
+            "type": "process",
+            "command": "docker",
+            "args": [
+                "run",
+				"--rm",
+				"--volume",
+				"${workspaceFolder}/build:/templatebuild/build",
+				"--tty",
+				"smallsonline-dotnet-templates:latest",
             ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": "$msCompile",
+            "runOptions": {
+                "instanceLimit": 1
+            },
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -31,38 +32,201 @@
                 "panel": "shared",
                 "showReuseMessage": true,
                 "clear": true
-            }
+            },
+			"dependsOn": [
+				"Build template container image"
+			]
         },
         {
-            "type": "shell",
-            "label": "Clean build directory",
-            "detail": "Remove the build directory, if it exists already.",
-            "windows": {
-                "command": "Test-Path -Path '${workspaceFolder}\\_build\\' | % { if ($PSItem -eq $true) { Remove-Item -Path '${workspaceFolder}\\_build\\' -Recurse -Force } }"
-            },
-            "osx": {
-                "command": "rm",
-                "args": [
-                    "-rf",
-                    "${workspaceFolder}/_build/"
-                ]
-            },
-            "linux": {
-                "command": "rm",
-                "args": [
-                    "-rf",
-                    "${workspaceFolder}/_build/"
-                ]
-            },
-            "problemMatcher": [],
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared",
-                "showReuseMessage": true,
-                "clear": false
-            }
-        }
-    ]
+			"label": "Watch",
+			"detail": "Run the app for local debugging and watch for changes.",
+			"icon": {
+				"id": "eye-watch",
+				"color": "terminal.ansiCyan"
+			},
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"watch",
+				"--",
+				"run",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/${input:watchProject}",
+				"env": {
+					"DOTNET_ENVIRONMENT": "Development"
+				}
+			},
+			"runOptions": {
+				"instanceLimit": 2,
+			},
+			"presentation": {
+				"echo": false,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			},
+			"isBackground": true,
+			"problemMatcher": [
+				{
+					"base": "$msCompile",
+					"background": {
+						"activeOnStart": true,
+						"beginsPattern": "^info: Microsoft.\\Hosting\\.Lifetime",
+						"endsPattern": "^\\s*Application started\\..+?$"
+					}
+				}
+			]
+		},
+		{
+			"label": "Build project",
+			"detail": "Build a project.",
+			"icon": {
+				"id": "tools",
+				"color": "terminal.ansiYellow"
+			},
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"build",
+				"${workspaceFolder}/${input:projectItem}",
+				"--configuration",
+				"${input:dotnetConfiguration}"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Clean project",
+			"detail": "Clean a project.",
+			"icon": {
+				"id": "trashcan",
+				"color": "terminal.ansiBlack"
+			},
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"clean",
+				"${workspaceFolder}/${input:projectItem}",
+				"--configuration",
+				"${input:dotnetConfiguration}"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Restore project",
+			"detail": "Restore a project.",
+			"icon": {
+				"id": "sync",
+				"color": "terminal.ansiBlue"
+			},
+			"type": "process",
+			"command": "dotnet",
+			"args": [
+				"restore",
+				"${workspaceFolder}/${input:projectItem}"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": "$msCompile"
+		},
+		// Remaining tasks are only for the VSCode launch configs
+		// or are supporting tasks.
+        {
+			"label": "Build template container image",
+			"hide": true,
+			"type": "process",
+			"command": "docker",
+			"args": [
+				"buildx",
+				"build",
+				"--load",
+				"--tag",
+				"smallsonline-dotnet-templates:latest",
+				"--file",
+				"${workspaceFolder}/Dockerfile",
+				"."
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"problemMatcher": "$msCompile",
+			"runOptions": {
+				"instanceLimit": 1
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": true
+			}
+		}
+    ],
+    "inputs": [
+		{
+			"id": "dotnetConfiguration",
+			"description": "Select a configuration for compilation.",
+			"type": "pickString",
+			"default": "Debug",
+			"options": [
+				{
+					"label": "Debug",
+					"value": "Debug"
+				},
+				{
+					"label": "Release",
+					"value": "Release"
+				}
+			]
+		},
+		{
+			"id": "projectItem",
+			"description": "Select a project.",
+			"type": "pickString",
+			"default": "SmallsOnline.Dotnet.Templates.sln",
+			"options": [
+				{
+					"label": "Entire solution",
+					"value": "SmallsOnline.Dotnet.Templates.sln"
+				},
+				{
+					"label": "Templates",
+					"value": "src/Templates"
+				}
+			]
+		},
+		{
+			"id": "containerPlatformArch",
+			"description": "Select a platform architecture for the container.",
+			"type": "pickString",
+			"default": "linux/arm64",
+			"options": [
+				"linux/amd64",
+				"linux/arm64"
+			]
+		},
+		{
+			"id": "watchProject",
+			"description": "Select a project to run 'dotnet watch' on.",
+			"type": "pickString",
+			"default": "src/Templates",
+			"options": [
+				{
+					"label": "Templates",
+					"value": "src/Templates"
+				}
+			]
+		}
+	]
 }
