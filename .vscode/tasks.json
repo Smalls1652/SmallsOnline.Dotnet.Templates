@@ -9,14 +9,14 @@
                 "color": "terminal.ansiYellow"
             },
             "type": "process",
-            "command": "dotnet",
+            "command": "docker",
             "args": [
-                "pack",
-                "${workspaceFolder}/src/Templates",
-                "--configuration",
-                "Release",
-                "--output",
-                "${workspaceFolder}/build"
+                "run",
+				"--rm",
+				"--volume",
+				"${workspaceFolder}/build:/templatebuild/build",
+				"--tty",
+				"smallsonline-dotnet-templates:latest",
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -32,7 +32,10 @@
                 "panel": "shared",
                 "showReuseMessage": true,
                 "clear": true
-            }
+            },
+			"dependsOn": [
+				"Build template container image"
+			]
         },
         {
 			"label": "Watch",
@@ -139,64 +142,36 @@
 		// Remaining tasks are only for the VSCode launch configs
 		// or are supporting tasks.
         {
-			"label": "Build: MuzakBot.App",
-			"detail": "Build the MuzakBot.App project.",
+			"label": "Build template container image",
 			"hide": true,
 			"type": "process",
-			"command": "dotnet",
+			"command": "docker",
 			"args": [
+				"buildx",
 				"build",
-				"${workspaceFolder}/src/App",
-				"--configuration",
-				"Debug"
+				"--load",
+				"--tag",
+				"smallsonline-dotnet-templates:latest",
+				"--file",
+				"${workspaceFolder}/Dockerfile",
+				"."
 			],
 			"options": {
 				"cwd": "${workspaceFolder}"
 			},
-			"problemMatcher": "$msCompile"
-		},
-		{
-			"label": "Watch: MuzakBot.App",
-			"detail": "Run the app for local debugging and watch for changes.",
-			"hide": true,
-			"type": "process",
-			"command": "dotnet",
-			"args": [
-				"watch",
-				"--",
-				"run",
-				"/property:GenerateFullPaths=true",
-				"/consoleloggerparameters:NoSummary"
-			],
-			"options": {
-				"cwd": "${workspaceFolder}/src/App",
-				"env": {
-					"DOTNET_ENVIRONMENT": "Development"
-				}
-			},
+			"problemMatcher": "$msCompile",
 			"runOptions": {
-				"instanceLimit": 2,
+				"instanceLimit": 1
 			},
 			"presentation": {
-				"echo": false,
+				"echo": true,
 				"reveal": "always",
 				"focus": false,
 				"panel": "shared",
 				"showReuseMessage": true,
 				"clear": true
-			},
-			"isBackground": true,
-			"problemMatcher": [
-				{
-					"base": "$msCompile",
-					"background": {
-						"activeOnStart": true,
-						"beginsPattern": "^info: Microsoft.\\Hosting\\.Lifetime",
-						"endsPattern": "^\\s*Application started\\..+?$"
-					}
-				}
-			]
-		},
+			}
+		}
     ],
     "inputs": [
 		{

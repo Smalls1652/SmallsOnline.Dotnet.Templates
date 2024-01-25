@@ -1,0 +1,10 @@
+name: "smallsonline-templates-build"
+
+services:
+  template-build:
+    restart: no
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./build/:/templatebuild/build
