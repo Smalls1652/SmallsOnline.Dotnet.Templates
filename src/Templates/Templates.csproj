@@ -1,34 +1,41 @@
 <Project Sdk="Microsoft.NET.Sdk">
+    <!-- Core properties -->
     <PropertyGroup>
+        <RootNamespace>SmallsOnline.Dotnet.Templates</RootNamespace>
+        <AssemblyName>SmallsOnline.Dotnet.Templates</AssemblyName>
         <PackageType>Template</PackageType>
         <TargetFramework>net8.0</TargetFramework>
+    </PropertyGroup>
+    <!-- Package properties -->
+    <PropertyGroup>
+        <PackageId>SmallsOnline.Dotnet.Templates</PackageId>
+        <Title>Smalls.Online Dotnet Templates</Title>
+        <Description>
+            Custom templates for my own personal use.
+        </Description>
         <PackageTags>dotnet-new;templates;smalls-online</PackageTags>
-
+        <Authors>Timothy Small</Authors>
+        <Company>Smalls.Online</Company>
+        <Copyright>© Smalls.Online</Copyright>
+        <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Dotnet.Templates</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    </PropertyGroup>
+    <!-- Publish properties -->
+    <PropertyGroup>
         <IncludeContentInPack>true</IncludeContentInPack>
         <IncludeBuildOutput>false</IncludeBuildOutput>
         <ContentTargetFolders>content</ContentTargetFolders>
         <NoWarn>$(NoWarn);NU5128;NU5110;NU5111</NoWarn>
     </PropertyGroup>
-
-    <PropertyGroup>
-        <AssemblyName>SmallsOnline.Dotnet.Templates</AssemblyName>
-        <PackageId>SmallsOnline.Dotnet.Templates</PackageId>
-        <Title>Smalls.Online Dotnet Templates</Title>
-
-        <Description>
-            Custom templates for my own personal use.
-        </Description>
-
-        <Authors>Timothy Small</Authors>
-        <Company>Smalls.Online</Company>
-        <Copyright>© Smalls.Online</Copyright>
-
-        <RepositoryUrl>https://github.com/Smalls1652/SmallsOnline.Dotnet.Templates</RepositoryUrl>
-        <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    </PropertyGroup>
-
+    <!-- Includable files -->
     <ItemGroup>
         <Content Include="Templates\**\*" Exclude="Templates\**\bin\**;Templates\**\obj\**" />
         <Compile Remove="**\*" />
+    </ItemGroup>
+    <!-- Dependencies -->
+    <ItemGroup>
+      <PackageReference Include="GitVersion.MsBuild" Condition="'$(Configuration)'=='Debug'">
+        <PrivateAssets>all</PrivateAssets>
+      </PackageReference>
     </ItemGroup>
 </Project>

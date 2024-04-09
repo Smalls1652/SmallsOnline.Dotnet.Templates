@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # NuGet config for the repo
+  - package-ecosystem: "nuget"
+    directory: "/"
+    target-branch: "main"
+    open-pull-requests-limit: 10
+    schedule:
+      interval: "daily"
+    assignees:
+      - "Smalls1652"
+
+  # GitHub Actions config for the repo
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    target-branch: "main"
+    open-pull-requests-limit: 10
+    schedule:
+      interval: "daily"
+    assignees:
+      - "Smalls1652"
